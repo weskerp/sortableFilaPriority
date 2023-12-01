@@ -15,4 +15,5 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 Route::any('/', 'FilaController@index')->name('fila.index');
-Route::post('/atualizar-ordem/{itemId}/{newIndex}', 'FilaController@atualizar-ordem')->name('fila.update');
+Route::post('/atualizar-ordem', 'FilaController@atualizarOrdem')->name('fila.update');
+
