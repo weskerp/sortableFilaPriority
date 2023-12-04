@@ -18,15 +18,16 @@ class FilaController extends Controller
         $itens = Processo::get();
         $dados = $request->input('data.cardProperties');
         $dados2 = [];
+        $status = [];
         foreach ($itens as $item) {
             foreach ($dados as $dado){
-                if($item->cod == (int)$dado['id'] && !isset($item['status'])){
-                    $item['status'] = 1;
+                if($item->cod == (int)$dado['id'] && !in_array($item['id'], $status)){
+                    $status[] = $item['id'];
                     $item->cod  = (int)$dado['newId'];
                     $item->ant  = (int)$dado['newId'] - 1;
                     $item->prox = (int)$dado['newId'] + 1;
                     $dados2[] = ['cod'=>$item->cod, $dado];
-                    // $item->save();
+                    $item->save();
                 }
             }
         }
